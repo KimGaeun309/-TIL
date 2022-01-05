@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>hover 활용</title>
+    <style>
+      div#img {
+        height: 140px;
+        width: 100px;
+        background-image: url("media/cardB.png");
+        background-size: 100px 140px;
+      }
+      div#img:hover {
+        background-image: url("media/cardF.png");
+      }
+    </style>
+  </head>
+  <body>
+    <h3>:hover 활용</h3>
+    <hr />
+    <table>
+      <tbody>
+        <tr>
+          <td>마우스를 올리면 앞면이 보인다.</td>
+          <td><div id="img"></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

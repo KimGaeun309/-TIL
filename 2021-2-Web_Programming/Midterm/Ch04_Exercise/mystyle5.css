@@ -1,0 +1,21 @@
+body.main {
+  background-color: aquamarine;
+}
+
+h3,
+em {
+  color: green;
+}
+
+div > strong {
+  background-color: yellow;
+  color: blue;
+}
+
+div.indent strong {
+  color: red;
+}
+
+#center {
+  text-align: center;
+}

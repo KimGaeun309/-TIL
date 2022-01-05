@@ -1,0 +1,19 @@
+body.main {
+  background: skyblue;
+}
+h3.headline {
+  color: darkred;
+  font-size: 2em;
+  text-align: center;
+}
+div.help {
+  color: darkblue;
+}
+p.help {
+  font-size: 1.5em;
+  color: red;
+}
+#hot {
+  background-color: orange;
+  color: blue;
+}
