@@ -1,0 +1,9 @@
+h3:first-letter {
+  color: red;
+}
+li:nth-child(even) {
+  background: orange;
+}
+li:nth-child(odd) {
+  background: yellow;
+}
