@@ -1,6 +1,6 @@
 package Section_01;
 
-//Java »ó¼Ó ½Ç½À
+//Java ìƒì† ì‹¤ìŠµ
 
 public class EnemyCharacter extends Character {
 
@@ -8,7 +8,7 @@ public class EnemyCharacter extends Character {
 		super(name, hp, atk);
 	}
 	
-	@Override // Ãß°¡ÀûÀ¸·Î ±â´É ´õÇÑ´Ù´Â Ç¥½Ã. (¾ø¾îµµ ±â´ÉÀº °°À½.)
+	@Override // ì¶”ê°€ì ìœ¼ë¡œ ê¸°ëŠ¥ ë”í•œë‹¤ëŠ” í‘œì‹œ. (ì—†ì–´ë„ ê¸°ëŠ¥ì€ ê°™ìŒ.)
 	public void attack(Character enemy) {
 		
 		if (hp <= 20) {
@@ -18,7 +18,7 @@ public class EnemyCharacter extends Character {
 		
 		super.attack(enemy);
 		
-		// PlayerCharacter·Î Çüº¯È¯ÇØ Heal() »ç¿ë!
+		// PlayerCharacterë¡œ í˜•ë³€í™˜í•´ Heal() ì‚¬ìš©!
 		PlayerCharacter player = (PlayerCharacter)enemy;
 		
 		if (player.hp <= 30) {
