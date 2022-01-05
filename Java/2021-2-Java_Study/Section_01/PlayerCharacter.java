@@ -1,6 +1,6 @@
 package Section_01;
 
-//Java »ó¼Ó ½Ç½À
+//Java Â»Ã³Â¼Ã“ Â½Ã‡Â½Ã€
 
 public class PlayerCharacter extends Character {
 	
