@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>시간대별 테마</title>
+  </head>
+  <body>
+    <h3>
+      페이지 방문 시간이 그 나라 기준 아침이면 스카이블루, 낮이면 오렌지, 밤이면
+      그레이
+    </h3>
+    <hr />
+    <script>
+      var place = prompt("장소를 입력해주세요 (하와이 / 모스크바)");
+      if (place == "하와이") time_diff = -19;
+      else if (place == "모스크바") time_diff = -6;
+      else time_diff = 0;
+
+      var current = new Date();
+      var hour = current.getHours();
+      hour += time_diff;
+      if (hour < 0) hour += 24;
+      else if (hour > 24) hour -= 24;
+
+      document.write("현재 시간 : " + hour + " 시");
+
+      if (hour < 12 && hour >= 6)
+        document.body.style.backgroundColor = "skyblue";
+      else if (hour >= 12 && hour < 20)
+        document.body.style.backgroundColor = "orange";
+      else document.body.style.backgroundColor = "grey";
+    </script>
+  </body>
+</html>

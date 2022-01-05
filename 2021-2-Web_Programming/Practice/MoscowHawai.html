@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>모스크바와 하와이 중 어디를 여행하시겠습니까?</title>
+    <style>
+      button {
+        color: darkolivegreen;
+        font-size: 25px;
+      }
+    </style>
+    <script>
+      function moscow(time) {
+        time -= 6;
+        if (time < 0) {
+          time += 24;
+        }
+
+        var div = document.getElementById("travelDiv");
+        div.innerHTML = "모스크바는 현재 " + time + "시 입니다.";
+        if (time >= 6 && time <= 18) {
+          // 낮
+          div.style.backgroundColor = "skyblue";
+          div.style.backgroundImage = 'url("media/moscow_morning.png")';
+          div.style.backgroundSize = "610px 340px";
+        } else {
+          // 방
+          div.style.backgroundColor = "darkgrey";
+          div.style.backgroundImage = 'url("media/moscow_night.png")';
+          div.style.backgroundSize = "610px 340px";
+        }
+      }
+
+      function hawai(time) {
+        time -= 19;
+        if (time < 0) {
+          time += 24;
+        }
+        var div = document.getElementById("travelDiv");
+        div.innerHTML = "하와이는 현재 " + time + "시 입니다.";
+        if (time >= 6 && time <= 18) {
+          // 낮
+          div.style.backgroundColor = "skyblue";
+          div.style.backgroundImage = 'url("media/hawai_morning.png")';
+          div.style.backgroundSize = "610px 430px";
+        } else {
+          // 방
+          div.style.backgroundColor = "darkgrey";
+          div.style.backgroundImage = 'url("media/hawai_night.png")';
+          div.style.backgroundSize = "610px 430px";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h3>어느 곳을 여행하고 싶나요?</h3>
+    <hr />
+    <script>
+      var current = new Date();
+      var hour = current.getHours();
+    </script>
+    <button onclick="moscow(hour)">모스크바</button>
+    <button onclick="hawai(hour)">하와이</button>
+    <br /><br />
+    <div
+      id="travelDiv"
+      style="
+        width: 1000px;
+        height: 600px;
+        background-repeat: repeat-y;
+        background-position: center center;
+        color: ivory;
+        font-size: 16px;
+      "
+    ></div>
+  </body>
+</html>
