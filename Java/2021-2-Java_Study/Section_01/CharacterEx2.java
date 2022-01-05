@@ -1,18 +1,18 @@
 package Section_01;
 
-//Java »ó¼Ó ½Ç½À - PlayerCharacter Å¬·¡½º, EnemyCharacter Å¬·¡½º »ç¿ë (Character Å¬·¡½ºÀÇ ÀÚ½Ä Å¬·¡½ºÀÎ)
+//Java ìƒì† ì‹¤ìŠµ - PlayerCharacter í´ë˜ìŠ¤, EnemyCharacter í´ë˜ìŠ¤ ì‚¬ìš© (Character í´ë˜ìŠ¤ì˜ ìì‹ í´ë˜ìŠ¤ì¸)
 
 public class CharacterEx2 {
 
 	// class extends
 	
 	public static void main(String[] args) {
-		PlayerCharacter player = new PlayerCharacter("gamepari", 70, 12); // Player ¶ó´Â °´Ã¼°¡ »ı¼ºµÇ¾î °ªÀÌ ÃÊ±âÈ­µÊ
+		PlayerCharacter player = new PlayerCharacter("gamepari", 70, 12); // Player ë¼ëŠ” ê°ì²´ê°€ ìƒì„±ë˜ì–´ ê°’ì´ ì´ˆê¸°í™”ë¨
 		EnemyCharacter enemy = new EnemyCharacter("Orc", 80, 5);
 		
 		while (player.isLive() && enemy.isLive()) {
 			player.attack(enemy);
-			if (!enemy.isLive()) break; // ÀûÀÌ Á×¾úÀ¸´Ï ¹İº¹¹® ºüÁ®³ª¿À±â		
+			if (!enemy.isLive()) break; // ì ì´ ì£½ì—ˆìœ¼ë‹ˆ ë°˜ë³µë¬¸ ë¹ ì ¸ë‚˜ì˜¤ê¸°		
 			enemy.attack(player);
 			System.out.println("----------------------------------");
 		}
