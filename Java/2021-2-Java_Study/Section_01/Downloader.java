@@ -16,7 +16,7 @@ public class Downloader {
 		System.out.println("Download Start");
 		
 		try {
-			Thread.sleep(5000); // ½ÇÆĞÇÒ °¡´É¼ºÀÌ ³ô¾Æ try catch »ç¿ëÇØ¾ß.
+			Thread.sleep(5000); // ì‹¤íŒ¨í•  ê°€ëŠ¥ì„±ì´ ë†’ì•„ try catch ì‚¬ìš©í•´ì•¼.
 		}
 		catch (InterruptedException e){
 			System.out.println(e.getMessage());
