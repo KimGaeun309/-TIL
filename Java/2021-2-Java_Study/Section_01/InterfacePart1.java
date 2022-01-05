@@ -1,7 +1,7 @@
 package Section_01;
 
 //interface part 1
-// Animal Å¬·¡½º
+// Animal í´ë˜ìŠ¤
 
 public class InterfacePart1 {
 	
@@ -17,7 +17,7 @@ public class InterfacePart1 {
 		
 		System.out.println("------------------");
 		
-		// ÀÎÅÍÆäÀÌ½º
+		// ì¸í„°í˜ì´ìŠ¤
 		Pet pet1 = new Cat("nyaong");
 		Pet pet2 = new Dog("baduk");
 		
@@ -26,7 +26,7 @@ public class InterfacePart1 {
 		
 		System.out.println("------------------");
 		
-		// Çüº¯È¯
+		// í˜•ë³€í™˜
 		((Cat)pet1).Cry();
 	}
 
