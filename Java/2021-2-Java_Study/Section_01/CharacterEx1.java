@@ -1,6 +1,6 @@
 package Section_01;
 
-// Java »ó¼Ó ½Ç½À - Character Å¬·¡½º »ç¿ë
+// Java ìƒì† ì‹¤ìŠµ - Character í´ë˜ìŠ¤ ì‚¬ìš©
 
 public class CharacterEx1 {
 	
@@ -9,12 +9,12 @@ public class CharacterEx1 {
 	
 	
 	public static void main(String[] args) {
-		Character player = new Character("gamepari", 100, 12); // Player ¶ó´Â °´Ã¼°¡ »ı¼ºµÇ¾î °ªÀÌ ÃÊ±âÈ­µÊ
+		Character player = new Character("gamepari", 100, 12); // Player ë¼ëŠ” ê°ì²´ê°€ ìƒì„±ë˜ì–´ ê°’ì´ ì´ˆê¸°í™”ë¨
 		Character enemy = new Character("Orc", 80, 5);
 		
 		while (player.isLive() && enemy.isLive()) {
 			player.attack(enemy);
-			if (!enemy.isLive()) break; // ÀûÀÌ Á×¾úÀ¸´Ï ¹İº¹¹® ºüÁ®³ª¿À±â		
+			if (!enemy.isLive()) break; // ì ì´ ì£½ì—ˆìœ¼ë‹ˆ ë°˜ë³µë¬¸ ë¹ ì ¸ë‚˜ì˜¤ê¸°		
 			enemy.attack(player);
 		}
 		
