@@ -1,3 +1,8 @@
+# 백준 15649 N과 M (1)
+
+"""
+백트래킹 이용해 풀이.
+"""
 
 N, M = map(int, input().split())
 answer = []
