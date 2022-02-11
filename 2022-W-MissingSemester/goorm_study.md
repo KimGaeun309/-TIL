@@ -121,7 +121,224 @@ vi에서는 `k` (위), `l` (오른쪽), `h` (왼쪽), `j` (아래) 로 커서를
 
 ctrl+f 가 아닌 `/문자열` 으로 아래 방향으로 찾고 `?문자열` 으로 위 방향으로 찾을 수 있다.
 
-기존 찾던 방향으로 계속 문자열을 찾을 경우 `n`, 반대 방향으로 문자열을 찾을 경우는 `N`
+기존 찾던 방향으로 계속 문자열을 찾을 경우 `n`, 반대 방향으로 문자열을 찾을 경우는 `N` 
 
+# Version Control (Git & Github)
 
+## 1. 버전관리에 대해서
 
+### 버전 관리가 무엇일까
+
+버전 관리(Version Control): 파일 변화를 시간에 따라 기록하고 나중에 특정 시점의 버전을 꺼내올 수 있는 시스템
+
+버전 관리 시스템의 종류 : Git, Subversion, Mercurial, ...
+
+### 사용하는 이유
+
+- 파일을 잃거나 잘못 고쳤을 때 복구하기 용이
+- 어느 부분이 변경되었는지 추적
+- 누가 언제 만들어낸 것인지 알기 위해 (협업 시)
+
+### 버전 관리 종류
+
+**로컬 버전 관리**
+
+가장 간단하게 버전을 관리하는 방법은 디렉토리에 파일 복사하기가 있다. 하지만 파일을 잘못 복사하거나 삭제해버리면 돌이킬 수 없어 버전 관리 도구가 생겼다. VCS라는 버전 관리 도구에서는 로컬에서 데이터베이스를 이용해서 파일의 변경 정보를 관리하고 있다.
+
+**중앙집중식 버전 관리**
+
+파일 관리는 중앙 서버에서 하고 개발자들은 중앙 서버에서 파일들을 다운받아 사용하는 방법. 하지만 모든 파일이 중앙 서버에 있기 때문에 서버에 문제가 발생하면 로컬에서 작업하는 개발자들은 문제가 해결되기 전까지 협업을 할 수 없다.
+
+**분산 버전 관리**
+
+로컬과 서버에 저장소가 모두 존재한다. 서버에 있는 저장소를그대로 로컬에 복제해서 사용하므로 서버에 문제가 발생하면 로컬 저장소를 그대로 올려 작업을 진행할 수 있다.
+
+### git
+
+**git이란?**
+
+오픈 소스로 관리되는 분산 버전 관리 시스템이다. 2005년 BitKeeper의 유료화로 개발된 도구로, 리누스 토발즈가 리눅스 개발을 위해 만든 버전 관리 도구이다.
+
+**장점**
+
+- 빠른 속도
+- 단순한 구조
+- 동시 다발적으로 개발
+- 완벽한 분산으로 서버 측의 저장소와 개발자들의 환경에 저장소가 존재해 저장소 한 곳에서 복제를 하면 다시 작업이 가능함
+- 대형 프로젝트에서도 속도 원활 (성능이 우수)
+
+## 2. git 입문하기
+
+### 로컬 저장소 만들기
+
+- `$ git config --global init.defaultBranch main` : 기본 브랜치의 이름을 main으로 설정. 작년까지 git의 기본 브랜치 이름은 master였지만 Black Lives Matter 이후로 main으로 변경되었다.
+- `$ git init` : git 저장소 생성하기 - 자신이 원하는 디렉터리 위치로 가서 명령어 실행하면 git 저장소를 생성할 수 있다. (User 폴더 내에서 git 저장소를 만들 것을 권장)
+    - Window 기준 - C:\Users\<유저이름>\hufs-missing-semester
+        
+        ```bash
+        $ md ~/hufs-missing-semester
+        $ cd ~/hufs-missing-semester
+        $ git init
+        ```
+        
+    - Linux - /home/<..>/hufs-missing-.. Mac - /Users/<..>/hufs-missing-..
+        
+        ```bash
+        $ mkdir ~/hufs-missing-semester
+        $ cd ~/hufs-missing-semester
+        $ git init
+        ```
+        
+
+### Add 명령 : git 저장소에 파일을 추가하는 명령어
+
+```powershell
+$ git add first.txt
+$ git status
+```
+
+hufs-missing-semester 디렉터리 안에 first.txt를 생성한 뒤 `$ git add first.txt` 로 파일을 저장소에 추가하고 `$ git status` 로 추가한 파일을 확인할 수 있다.
+
+### Commit 명령 : git에서 관리할 파일을 추가하는 명령어
+
+**커밋**
+
+소스 코드 일부의 최신 병경사항을 추가해 저장소의 최상위 기록으로 만드는 방법
+
+```powershell
+$ git commit -m "원하는 메세지"
+[main (root-commit) b315403] 원하는 메세지
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 first.txt
+```
+
+-m 옵션을 통해 메세지 내용을 등록할 수 있다. 메세지의 경우 작성 규칙은 없지만 대부분 메세지 앞에 `Add:`, `Update:`, `Modify:`, `Delete:` 와 같은 단어를 두고 변경 사항에 대해 설명하는 메세지를 적는다. 
+
+```powershell
+$ git log
+commit b3154033ff0febde812dec56f6128042454da6db (HEAD -> main)
+Author: Gaeun <mihara0309@gmail.com>
+Date:   Fri Feb 11 22:45:49 2022 +0900
+
+    Add: first text file
+```
+
+`$git log` 를 통해 커밋 메세지, 작성자, 변경 날자에 대한 정보가 출력된다.
+
+### Github 가입하기
+
+github는 온라인 git 저장소로 public과 private 저장소를 생성할 수 있다. organizetion이 지원되어 조직을 생성해 여러 사람들과 한 공간에서 다양한 프로젝트를 작업할 수 있도록 한다.
+
+## 3. github과 함께
+
+### 원격 저장소에 연결하기
+
+```powershell
+$ git remote add origin 복사한_자신의_git_url
+```
+
+github repogitory를 생성한 뒤 위와 같은 커맨드로 origin 이름으로 로컬 저장소를 github 저장소에 연결합니다. 이로써 push, pull 과 같은 명령어를 사용할 수 있게 되었습니다.
+
+### github에 커밋 push하기
+
+```powershell
+$ git push origin main
+```
+
+git push 명령을 통해 origin(Github에 만든 저장소)의 main 브랜치에 커밋 내용을 반영
+
+(원래는 Username과 Password를 입력해야 하지만 에러가 떠서 SSH-Key를 등록하고 반영했다.)
+
+### 원격 저장소에서 새로운 내용 가져오기
+
+```powershell
+$ git pull
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (2/2), done.
+Unpacking objects: 100% (3/3), 691 bytes | 62.00 KiB/s, done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+From github.com:KimGaeun309/github-practice
+   b315403..093fc15  main       -> origin/main
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> main
+$ git branch --set-upstream-to=origin/main main
+branch 'main' set up to track 'origin/main'.
+$ git pull
+Updating b315403..093fc15
+Fast-forward
+ new_file.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 new_file.txt
+$ git log
+commit 093fc15c0e8dd477b006297ae52b1faa8a6acc44 (HEAD -> main, origin/main)
+Author: KimGaeun309 <90085690+KimGaeun309@users.noreply.github.com>
+Date:   Sat Feb 12 00:32:29 2022 +0900
+
+    Add new_file
+
+commit b3154033ff0febde812dec56f6128042454da6db
+Author: Gaeun <mihara0309@gmail.com>
+Date:   Fri Feb 11 22:45:49 2022 +0900
+
+    Add: first text file
+```
+
+git pull 명령을 통해 remote 저장소 내용을 가져올 수 있다.
+
+(명령이 안먹어서 `$ git branch --set-upstream-to=origin/main main` 을 통해 로컬 main이 origin/main을 추적하도록 만든 후 다시 `$ git pull` 을 실행시켰다.)
+
+그리고 `$ git log` 통해 브랜치 커밋 내역을 확인하면 2개의 커밋을 확인할 수 있다.
+
+### 다른 프로젝트 가져오기
+
+```bash
+$ git clone 가져오고_싶은_저장소_url
+```
+
+### git, 어려워서 못 쓰겠어요
+
+Git Desktop을 통해 GUI로 쉽게 사용할 수 있다.
+
+## 4. git 브랜치 사용
+
+### 여러 명이서 작업한다면?
+
+협업을 하면서 main 브랜치만 사용한다면 같은 이름의 파일에 대해 두 번 생성하는 등 충돌이 발생할 수 있다. 또 하나의 브랜치에서 기능을 여러 개 만들어 저장한다면 초기에 만든 기능에서 문제가 발생했을 경우 최근에 만든 문제가 없는 기능까지 되돌려야할 수 있다. 따라서 대다수의 프로젝트에서는 여러 개의 브랜치를 이용해 사람마다, 기능마다 나누어 작업하고 있다. 
+
+### Branch와 checkout
+
+```powershell
+$ git branch develop
+$ git checkout develop
+Switched to branch 'develop'
+$ git log
+commit 093fc15c0e8dd477b006297ae52b1faa8a6acc44 (HEAD -> develop, origin/main, main)
+```
+
+`$ git branch develop` 으로 develop 이름의 새로운 브랜치 생성할 수 있다. branch는 git이 가리키는 위치(HEAD)에서 생성된다. `$ git checkout develop` 통해 브랜치를 전환할 수 있다. `$ git log` 로 HEAD(현재 git이 가리키는 위치)가 develop으로 바뀌어 있음을 확인할 수 있다.
+
+### 다른 브랜치로 코드 합치기
+
+작업 내용을 하나로 병합하는 merge
+
+```powershell
+$ git add file2.txt
+$ git commit -m "Add: file2"
+$ push origin develop
+```
+
+이전 내용까지 배운 명령을 이용해 Github의 develop 브랜치로 push한다. 현재 로컬 저장소가 develop인 경우 git push 명령을 하여도 origin의 develop으로 푸쉬된다. 
+
+이를 병합하려면 github에서 `Compare&Pull Request` 를 누른다. base는 어느 브랜치에 합칠지, compare는 어느 브랜치를 합치는지. 이 두 가지를 설정한 다음 `Create pull request` 를 누른다. 다음 화면에서 협업을 하는 경우 병합 전에 코드 리뷰를 진행할 수 있다. `Merge pull request` 를 누르면 merge가 진행된다.
+
+**추가 강의 자료**
+
+[lesson.pdf](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/40c5335a-40d4-4532-9c64-b5419ed4451c/lesson.pdf)
