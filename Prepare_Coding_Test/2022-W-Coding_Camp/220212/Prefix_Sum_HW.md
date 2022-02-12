@@ -126,11 +126,89 @@ print(cnt) # 답 출력
 >**출력 형식**    
 >첫 번째 줄부터 Q개의 줄에 걸쳐 i번째 줄에 i번째 범위 내에 있는 1, 2, 3번 그룹의 돌 개수를 공백을 사이에 두고 출력합니다.
 
+**풀이 1** : 그룹별로 prefix sum 저장해 풀기. 
+
+```python
+n, q = tuple(map(int, input().split()))
+
+group1, group2, group3 = [0] * (n+1), [0] * (n+1), [0] * (n+1)  
+prefix1, prefix2, prefix3 = [0] * (n+1), [0] * (n+1), [0] * (n+1)
+
+# 그룹별 돌 개수 저장 (group1[i] 가 1이면 i번 돌이 그룹1에 들어 있다는 뜻)
+for i in range(1, n+1):
+    num = int(input())
+    if num == 1:
+        group1[i] += 1
+    elif num == 2:
+        group2[i] += 1
+    else:
+        group3[i] += 1
+        
+# 질의 입력받아 저장
+queries = [
+    tuple(map(int, input().split()))
+    for _ in range(q)
+]
+
+# 각 그룹의 prefix sum 구하기
+for i in range(1, n+1):
+    prefix1[i] = prefix1[i-1] + group1[i]
+    prefix2[i] = prefix2[i-1] + group2[i]
+    prefix3[i] = prefix3[i-1] + group3[i]
+
+# 질의마다 각 그룹에 있는 범위 내의 돌 개수 출력
+for x, y in queries:
+    # group1
+    print(prefix1[y] - prefix1[x-1], end=' ')
+    # group2
+    print(prefix2[y] - prefix2[x-1], end=' ')
+    # group4
+    print(prefix3[y] - prefix3[x-1])
+```
+
+** 풀이 2** : prefix_sum을 이차원 배열로 만들어 prefix_sum[j] 에 j번째 그룹의 prefix_sum 저장
+
+```python
+n, q = tuple(map(int, input().split()))
+
+prefix_sum = [[0 for _ in range(n+1)] for _ in range(4)]
+
+# 그룹 입력받아 prefix_sum 만들기
+for i in range(1, n+1):
+    group = int(input())
+    prefix_sum[group][i] += 1
+    for j in range(1, 4):
+        prefix_sum[j][i] += prefix_sum[j][i-1]
+
+# 질의 저장
+queries = [
+    tuple(map(int, input().split()))
+    for _ in range(q)
+]
+
+# 질의마다
+for x, y in queries:
+    # 그룹별 구간에 있는 돌의 개수 저장
+    for j in range(1, 4):
+        print(prefix_sum[j][y] - prefix_sum[j][x-1], end=' ')
+    print()
+```
+
+## 구간에 속한 문자의 개수
+> n x m 크기의 2차원 격자가 알파벳 소문자 a, b, c 로만 이루어져 있습니다.
+>k개의 질의에 대해 주어진 직사각형 범위 안에 각각 a b c 가 몇 개씩 있는지를 구하는 프로그램을 작성해보세요.    
+>**입력 형식**    
+>첫 번째 줄에 n, m, k가 공백을 사이에 두고 주어집니다.    
+>두 번째 줄부터 n개의 줄에 걸쳐 각 행에 해당하는 길이가 m인 문자열이 공백없이 주어집니다.    
+>n+2 번째 줄부터 k개의 줄에 걸쳐 직사각형 범위를 나타내는 (r_1, c_1, r_2, c_2) 값이 공백을 사이에 두고 주어집니다. 이는 r_1행 c_1열에서부터 r_2행 c_2열까지로 이루어진 직사각형을 의미합니다.    
+>* 1 ≤ n, m ≤ 1,000
+>* 1 ≤ k ≤ 100,000
+>
+>**출력 형식**     
+>첫 번째 줄부터 k개의 줄에 걸쳐 각 주어진 범위 안에 속해있는 a, b, c 문자의 개수를 각각 공백을 사이에 두고 출력합니다.
+
 **풀이** : 
 
 ```python
 
 ```
-
-
-
