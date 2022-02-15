@@ -207,8 +207,40 @@ for x, y in queries:
 >**출력 형식**     
 >첫 번째 줄부터 k개의 줄에 걸쳐 각 주어진 범위 안에 속해있는 a, b, c 문자의 개수를 각각 공백을 사이에 두고 출력합니다.
 
-**풀이** : 
+**풀이** : 세 그룹에 대해 각각 prefix sum 리스트를 만들어 푼다. (삼차원 리스트로 해결해도 ok)
 
 ```python
+n, m, k = tuple(map(int, input().split()))
+A, B, C = [[0 for _ in range(m+1)] for _ in range(n+1)], [[0 for _ in range(m+1)] for _ in range(n+1)], [[0 for _ in range(m+1)] for _ in range(n+1)]
+prefixA, prefixB, prefixC = [[0 for _ in range(m+1)] for _ in range(n+1)], [[0 for _ in range(m+1)] for _ in range(n+1)], [[0 for _ in range(m+1)] for _ in range(n+1)]
+
+for i in range(1, n+1):
+    string = input()
+    for j in range(1, m+1):
+        if string[j-1] == 'a':
+            A[i][j] = 1
+        elif string[j-1] == 'b':
+            B[i][j] = 1
+        else:
+            C[i][j] = 1
+
+
+for i in range(1, n+1):
+    for j in range(1, m+1):
+        prefixA[i][j] = prefixA[i-1][j] + prefixA[i][j-1] - prefixA[i-1][j-1] + A[i][j]
+        prefixB[i][j] = prefixB[i-1][j] + prefixB[i][j-1] - prefixB[i-1][j-1] + B[i][j]
+        prefixC[i][j] = prefixC[i-1][j] + prefixC[i][j-1] - prefixC[i-1][j-1] + C[i][j]
+
+def print_sum(x1, y1, x2, y2):
+    sumA = prefixA[x2][y2] - prefixA[x1-1][y2] - prefixA[x2][y1-1] + prefixA[x1-1][y1-1]
+    sumB = prefixB[x2][y2] - prefixB[x1-1][y2] - prefixB[x2][y1-1] + prefixB[x1-1][y1-1]
+    sumC = prefixC[x2][y2] - prefixC[x1-1][y2] - prefixC[x2][y1-1] + prefixC[x1-1][y1-1]
+    print(sumA, sumB, sumC)
+
+
+for _ in range(k):
+    s1, e1, s2, e2 = tuple(map(int, input().split()))
+    print_sum(s1, e1, s2, e2)
+
 
 ```
