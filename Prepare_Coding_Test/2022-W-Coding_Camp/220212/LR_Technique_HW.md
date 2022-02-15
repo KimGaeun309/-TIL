@@ -123,13 +123,71 @@ print(answer) # 답 출력
 >**출력 형식**    
 >첫 번째 줄에 인접하지 않은 세 숫자의 합 중 최댓값을 출력합니다.
 
-**풀이** : 
+**풀이** : L에는 L[i]에 L[0]부터 L[i]까지 중 최댓값이 저장되도록 하고 R에는 R[i]에 R[n-1]부터 R[i]까지 중 최댓값이 저장되도록 한 후 답 구하기
 
 ```python
+n = int(input())
+arr = list(map(int, input().split()))
 
+L, R = [0]*n, [0]*n
+
+# L 배열 채우기 (왼쪽부터 최댓값)
+L[0] = arr[0]
+for i in range(1, n):
+    L[i] = max(L[i-1], arr[i])
+    
+# R 배열 갱신 (오른쪽부터 최댓값)
+R[n-1] = arr[n-1]
+for i in range(n-2, -1, -1):
+    R[i] = max(R[i+1], arr[i])
+
+max_sum = 0
+
+# 인접하지 않는 세 수의 합 중 최댓값 찾기
+for i in range(2, n-2):
+    max_sum = max(max_sum, L[i-2] + arr[i] + R[i+2])
+
+print(max_sum) # 답 출력
 ```
 
+## 구간 외 최대 숫자
+>n개의 숫자가 주어졌을 때, q개의 질의에 대해 주어진 구간 밖에 있는 숫자들 중 최댓값을 출력하는 프로그램을 작성해보세요.    
+>단, 구간은 n개의 숫자의 번호에 해당하는 숫자로 주어집니다.    
+>**입력 형식**    
+>첫 번째 줄에는 n과 q가 공백을 사이에 두고 주어집니다.    
+>두 번째 줄에는 n개의 숫자가 공백을 사이에 두고 주어집니다.    
+>세 번째 줄 부터는 q개의 줄에 걸쳐 구간에 대한 정보 a_i, b_i 값이 공백을 사이에 두고 주어집니다. 이는 주어진 n개의 숫자들을 1번부터 n번까지 순서대로 번호를 붙였을 때 번호가 [a_i, b_i] 사이에 있지 않은 숫자들 중 최댓값을 구해야 함을 의미합니다.  
+>* 1 ≤ n, q ≤ 100,000
+>* 1 ≤ 주어진 숫자 범위 ≤ 10^9
+>* 1 < a_i ≤ b_i < n
+>
+>**출력 형식**    
+>q개의 질의에 대해 각 구간 밖에 있는 숫자들 중 최댓값을 한 줄에 하나씩 출력합니다.
 
+**풀이** : 인접하지 않는 3개의 숫자 문제와 비슷한 방법으로 해결
 
+```python
+n, q = tuple(map(int, input().split()))
+arr = list(map(int, input().split()))
+queries = [
+    tuple(map(int, input().split()))
+    for _ in range(q)
+]
 
+L = [0] * n
+R = [0] * n
 
+# L 배열 채우기 (L[i] = L[0]~L[i] 중 최대값)
+L[0] = arr[0]
+for i in range(1, n):
+    L[i] = max(L[i-1], arr[i])
+
+# R 배열 채우기 (R[i] = R[n-1]~R[i] 중 최대값)
+R[n-1] = arr[n-1]
+for i in range(n-2, -1, -1):
+    R[i] = max(R[i+1], arr[i])
+
+# 질의 받으며 답 구해 출력
+for s, e in queries:
+    print(max(L[s-2], R[e]))
+```
