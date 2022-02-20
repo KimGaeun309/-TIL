@@ -308,5 +308,42 @@ print(answer)
 >연속 부분 문자열 중 문자열을 이루고 있는 서로 다른 문자의 수가 k를 넘지 않는 경우 중 가장 긴 부분 문자열의 길이를 출력합니다.
 
 ```python
+string, k = tuple(map(str, input().split()))
+k = int(k)
+string = "#" + string
+n = len(string) - 1
+count_array = dict()
 
+def can_go(j): # j를 진행시켜도 되는지 판별하는 함수
+    # j+1이 범위를 벗어나면 False
+    if j + 1 > n: 
+        return False
+    # 서로 다른 문자들의 종류가 k개이면서 j+1번째 문자가 처음 등장한다면 False
+    if diff_cnt == k and count_array.get(string[j+1], 0) == 0:
+        return False
+    # 그 외의 경우는 모두 True
+    return True
+
+count_array[string[1]] = 1 # count_array에 첫번째 문자 미리 넣기
+diff_cnt = 1 # 문자의 종류 저장할 변수
+answer = 0 # 답은 최소값으로 초기화 (최댓값으로 갱신할 것이므로)
+j = 1 # j 는 1부터 (끝 인덱스)
+
+for i in range(1, n+1): # i 는 1부터 for문 (시작 인덱스)
+    while can_go(j): # j를 진행시킬 수 있다면
+        # count_array에 j+1번째 문자를 하나 추가
+        count_array[string[j+1]] = count_array.get(string[j+1], 0) + 1 
+        # 만얄 j+1번째 문자가 처음 등장했다면 문자의 종류 값 증가
+        if count_array[string[j+1]] == 1:
+            diff_cnt += 1
+        j += 1 # 끝 인덱스 += 1
+
+    answer = max(answer, j - i + 1) # 최대 구간 길이로 answer 값 갱신
+ 
+    count_array[string[i]] -= 1  # count_array 에서 i번째 문자 하나 없애기
+
+    if count_array[string[i]] == 0: # 만약 i번째 문자가 더이상 없게 되었다면
+        diff_cnt -= 1 # 문자의 종류 값 감소
+
+print(answer)
 ```
