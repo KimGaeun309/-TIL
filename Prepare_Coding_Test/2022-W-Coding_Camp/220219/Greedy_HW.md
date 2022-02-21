@@ -266,10 +266,25 @@ for elem in arr:
 >**출력 형식**    
 >자동차를 단 한 번 사서 되팔 때의 최대 이익을 출력합니다. 단, 이익이 나지 않는 경우 0을 출력해줍니다.
 
-**풀이** : 
+**풀이** : 자동차를 산 가격은 첫 번째 원소로 먼저 저장해두고 두 번째 원소부터 자동차를 팔 가격을 for문을 통해 가져와 수익을 확인하고 답을 갱신한다. 만약 수익이 음수라면 자동차를 산 가격을 현재 파는 가격으로 바꾸어준다.
 
 ```python
+n = int(input())
+arr = list(map(int, input().split()))
 
+answer = 0 # 정답 저장할 변수 (최댓값으로 갱신)
+buy = arr[0] # 자동차를 산 가격 저장할 변수, 첫 번째 원소부터
+
+# 두 번째 원소부터 자동차를 팔 가격 확인
+for i in range(1, n):
+    sell = arr[i]
+    # arr[i]를 파는 가격으로 했을 때의 수익이 현재 answer보다 크다면 갱신
+    answer = max(answer, sell - buy) 
+    # 만약 arr[i]에 팔았을 때의 수익이 음수라면 buy를 현재 sell로 바꿔주기
+    if sell - buy < 0:
+        buy = sell
+
+print(answer)
 ```
 
 ### 높은 숫자의 카드가 이기는 게임
@@ -282,10 +297,33 @@ for elem in arr:
 >**출력 형식**    
 >첫 번째 줄에 A가 얻을 수 있는 점수의 최댓값을 출력합니다.
 
-**풀이** : 
+**풀이** : 2n개의 원소를 가지는 리스트 B를 정의하고 B[i]에는 B가 i+1번 카드를 내면 1, 내지 않으면 0을 저장한다. 그리고 for문을 통해 이 리스트를 순회하면서 B가 가진 카드이면 
+b_played를 증가시키고 A가 가진 카드이면 b_played에 있는 이 카드로 이길수 있는 B가 가진 카드의 수를 참고해 b_played가 0보다 크다면 answer를 증가시키고 b_played를 감소시킨다.
 
 ```python
+n = int(input())
+B = [0 for _ in range(2 * n)] 
+# B가 i+1번째 카드를 낸다면 1, 내지 않는다면 0
+for _ in range(n):
+    num = int(input())
+    B[num-1] = 1
 
+answer = 0 # 정답 저장할 변수
+b_played = 0 # 현재 시점에서 B가 보다 작은 숫자를 가진 카드를 몇 개나 낸 상태인지 저장
+
+# 카드 개수만큼 for문으로 순회하면서
+for i in range(2 * n):
+    # 만약 B가 이 카드를 낸다면 b_played를 증가시키고
+    if B[i] == 1:
+        b_played += 1
+    # 만약 A가 이 카드를 내면서 
+    else: 
+        # b_played 가 양수라면 (A가 이 카드를 냄으로써 이기는 판이 있다면)
+        if b_played > 0: 
+            answer += 1 # answer를 증가시키고
+            b_played -= 1 # b_played를 감소시킨다
+
+print(answer)
 ```
 
 ### 폭탄 해체 작업
@@ -315,11 +353,30 @@ for elem in arr:
 >* 0 ≤ 주어지는 시간 ≤ 100,000
 >
 >**출력 형식**    
->첫 번째 줄에 최대한 많은 수의 회의가 원활하게 진행되기 위해 취소해야 하는 최소 회의 수를 출력합니다.
+>첫 번째 줄에 최대한 많은 수의 회의가 원활하게 진행되기 위해 취소해야 하는 최소 회의 수를 출력합니다.
 
-**풀이** : 
+**풀이** : 회의실 준비 구현 문제와 같은 방식으로 풀되, answer를 n으로 초기화해두었다가 회의를 하나씩 선택할 때마다 감소시켜주어 남는 회의의 개수를 구할 수 있도록 한다.
 
 ```python
+n = int(input())
+meetings = [
+    tuple(map(int, input().split()))
+    for _ in range(n)
+]
 
+# key 매개변수를 가지는 sort() 함수는 key 값을 기준으로 정렬되고 기본값은 오름차순입니다. 또한 lambda식을 사용할 수 있습니다.
+meetings.sort(key=lambda x: x[1]) # 강의 끝나는 시간을 기준으로 sort
+
+answer = n # 정답 저장할 변수
+prev_e = 0 # 이전에 택한 강의가 끝난 시간 저장할 변수
+
+# meetings 리스트를 빨리 끝나는 순서대로 확인하며
+for s, e in meetings:
+    # 이번 강의가 바로 이전에 택한 강의와 겹치지 않는다면 선택
+    if s >= prev_e:  
+        answer -= 1  # 정답 감소시키고
+        prev_e = e   # prev_e를 현재 강의가 끝나는 시간으로 갱신
+
+print(answer) # 정답 출력
 ```
  
