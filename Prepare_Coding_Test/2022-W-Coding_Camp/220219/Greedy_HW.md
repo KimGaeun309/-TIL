@@ -250,10 +250,29 @@ for elem in arr:
 >필요한 최소 동전의 개수를 출력합니다.    
 >만약 2원 동전과 5원 동전으로 만들 수 없다면 -1을 출력합니다.
 
-**풀이** : 
+**풀이** : 5원 동전을 1개, 2개, ..., n//5개 사용하는 경우에 대해 각각 원하는 금액을 만들 수 있는지 확인하고 가능한 경우 정답을 최솟값으로 갱신해준다.
 
 ```python
+import sys
+INT_MAX = sys.maxsize
 
+n = int(input())
+
+answer = INT_MAX
+
+# i는 사용하는 5원 동전의 개수를 의미한다.
+for i in range(1, n // 5 + 1): 
+    # 만약 i개의 5원 동전을 사용할 경우 원하는 금액을 만들 수 없다면
+    if (n - 5 * i) % 2 != 0:
+        continue      # continue
+    # 만약 만들 수 있다면 정답 갱신
+    answer = min(answer, i + ((n - 5 * i) // 2))
+
+
+if answer == INT_MAX:
+    print(-1)
+else:
+    print(answer)
 ```
 
 ### 자동차 단일 거래 이익 최대화하기 2
@@ -338,10 +357,36 @@ print(answer)
 >**출력 형식**    
 >첫 번째 줄에 폭탄을 해체해서 얻을 수 있는 점수의 최댓값을 출력합니다.
 
-**풀이** : 
+**풀이** : 각 폭탄을 해체할 시간을 정하기 위해 사용할 리스트 times의 원소들을 0으로 초기화해둔다. times[i]에는 i 시간에 해체해야 하는 폭탄이 있으면 1, 없으면 0이 저장될 것이다. 
+bombs 리스트를 먼저 점수가 높은 순으로 정렬한 뒤 for문으로 순회하는데, 최대한 제한 시간에 가까운 시간에 그 폭탄이 해체되도록 하여 최대한 많은 폭탄이 해체될 수 있도록 한다.
 
 ```python
+n = int(input())
+bombs = [
+    tuple(map(int, input().split()))
+    for _ in range(n)
+]
+times = [0 for _ in range(10001)] 
+# times[i] 에는 i번째로 해체한 폭탄이 있으면 1, 없으면 0이 저장될 것이다
 
+bombs.sort(key = lambda x: -x[0]) # 점수가 높은 순으로 정렬
+answer = 0
+
+# 각 폭탄을 확인하며 해체 가능하면 answer에 점수 더하기
+for s, t in bombs:
+    # 제한 시간에 최대한 가까운 시간에 폭탄 해체하기 위해 for문으로 
+    # times[t]부터 times[1]까지 살펴보다가 0이면
+    # (= 그 시간에 해체해야 하는 폭탄이 없다면)
+    # 그 값을 1로 바꾸어주고 answer에 s를 더해주고 살펴보기를 멈춘다.
+    # 만약 times[1]까지 살펴보았는데도 0이 없었다면 해체할 수 없는 폭탄이다.
+    idx = t
+    for i in range(idx, 0, -1):
+        if times[i] == 0:
+            times[i] = 1
+            answer += s
+            break
+
+print(answer)
 ```
 
 ### 회의실 겹치지 않게 하기
@@ -379,4 +424,3 @@ for s, e in meetings:
 
 print(answer) # 정답 출력
 ```
- 
