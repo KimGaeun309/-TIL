@@ -1,4 +1,3 @@
-// 202000376 김가은
 // 완성
 #include <stdio.h>
 #include <string.h>
